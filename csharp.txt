@@ -1,0 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class testt : MonoBehaviour
+{
+    Rigidbody rb;
+    Animator an;
+    bool isatacking;
+    bool ismoving;
+    bool isdown;
+
+  
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Destroy(gameObject,3f); 
+        rb = GetComponent<Rigidbody>();
+        an = GetComponent<Animator>();
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+       
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //Destroy(gameObject);
+            rb.AddForce(Vector3.up * 250);
+        }
+        //////////////////////////////////////////////////////////////////////////
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            ismoving = true;
+            rb.velocity = Vector3.forward * 10f;
+            an.SetBool("ismoving", ismoving);
+        }
+        else
+        {
+            ismoving = false;
+            an.SetBool("ismoving", ismoving);
+        }
+        /////////////////////////////////////////////////////////////////////////
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+           
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (Input.GetKey("k"))
+        {
+            isatacking = true;
+            an.SetBool("isatacking", isatacking);
+        }
+        else
+        {
+            isatacking = false;
+            an.SetBool("isatacking", isatacking);
+        }
+      
+
+
+    }
+    private void OnCollisonEnter(Collision collision)
+    {
+        if(collision.gameObject.tag== "Enemy")
+        {
+            Destroy(gameObject);
+        }
+    }
+      
+    
+}
