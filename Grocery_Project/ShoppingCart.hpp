@@ -1,3 +1,5 @@
+//Dogukan Celik
+//Dogukan.Celik89@myhunter.cuny.edu
 #ifndef ShoppingCart_
 #define ShoppingCart_
 #include<iostream>
@@ -7,7 +9,6 @@
 
 
 
-//template<class T>
 class ShoppingCart :public DynamicArray<Grocery*>
 {
 public:

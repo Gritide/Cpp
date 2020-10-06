@@ -4,6 +4,8 @@ Title         :   DynamicArray.hpp
 Auhor         :   Team FBK
 Description   :   header/interface file of a dynamically resizeable array class
 ****************************************************************************************************************************/
+//Dogukan Celik
+//Dogukan.Celik89@myhunter.cuny.edu
 
 #ifndef DYNAMIC_ARRAY_
 #define DYNAMIC_ARRAY_

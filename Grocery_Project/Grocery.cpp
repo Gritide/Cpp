@@ -5,6 +5,8 @@ Modified By    :   ** ENTER YOUR NAME **
 Description    :   implementation file of a dynamically resizeable array class
 Dependencies   :   Grocery.hpp
 ****************************************************************************************************************************/
+//Dogukan Celik
+//Dogukan.Celik89@myhunter.cuny.edu
 #include "Grocery.hpp"
 
 Grocery::Grocery(std::string name, double price, double weight) : name_{ name }, unit_price_{ price }, unit_weight_{ weight }, quantity_{ 1 }

@@ -1,79 +1,72 @@
+//Dogukan Celik
+//Dogukan.Celik89@myhunter.cuny.edu
 #include<iostream>
 #include<iomanip>
+#include<string>
 #include "ShoppingCart.hpp"
 #include "Grocery.hpp"
 #include "DynamicArray.hpp"
 
-//using namespace std;
-//template <class T>
-ShoppingCart::ShoppingCart() {}
 
-//template <class T>
+ShoppingCart::ShoppingCart()
+{
+	//DynamicArray<Grocery*>::~DynamicArray();
+}
+
 ShoppingCart::~ShoppingCart()
 {
-
+	//DynamicArray<Grocery*>::~DynamicArray();
 }
 
-//template <class T>.
-/**
-adds new_entry to the caller; if the entry
-already exists in the caller, increment
-quantity_ in the object, and increment
-the curr_contents_weight_ of the caller
-by the unit_weight_ of the added item.
-
-@pre    :   the addition of the weight of
-new_entry does not bring the
-curr_contents_weight_ over the
-carrying capacity
-
-@return :   true if the addition is successful
-*/
-bool ShoppingCart::add(Grocery *new_entry) 
+bool ShoppingCart::add(Grocery *new_entry)
 {
-	int z = item_count_;
-	for (int i = 0; i <z; i++)
+	resize();
+	int crab = getIndexOf(new_entry);         //get the index of the item
+	if (items_[crab] == new_entry)     //if input already exist
+	{ 
+		items_[item_count_] = new_entry;  //add item in the array
+		new_entry->incrementQuantity();	// increment quantity
+		curr_contents_weight_ = new_entry->getUnitWeight() + curr_contents_weight_; // update current weight
+		return true;
+	}
+	else if (curr_contents_weight_ > 350)   // if our weight is greater than 350 stop adding
 	{
-		if (items_[i] == new_entry)
-		{
-			//quantity_++;
-			curr_contents_weight_;//= unit_weight_ + curr_contents_weight_;
+		return false;
+	}
+	else
+	{
+		items_[item_count_] = new_entry;      //add item
+		item_count_++;   //update item count
+		curr_contents_weight_ = new_entry->getUnitWeight() + curr_contents_weight_;
+		if (atCapacity()) //if we reach capacity
+		{//call resize
+			resize();
 			return true;
 		}
-		else if (curr_contents_weight_ > 365)
-		{
-			return false;
-		}
-		else
-		{
-			curr_contents_weight_;//= unit_weight_ + curr_contents_weight_;
-			return true;
-		}
+		return true;
+	}
+}
+
+bool ShoppingCart::remove(Grocery*an_item)
+{
+	// resize();
+	int z = an_item->getQuantity();           //quantity
+	int index = getIndexOf(an_item);  //get the index of the item
+	if (items_[index] == an_item&&z>0)//if input already exist
+	{
+		an_item->decrementQuantity();
+		curr_contents_weight_ -= an_item->getUnitWeight(); //update current weight
+		garbageClear(); //clear the item
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 	return true;
-	
-}
-//template <class T>
- bool ShoppingCart::remove(Grocery*an_item)
-{
-	 int n = item_count_;
-	for (int i = 0; i < n; i++)
-	{
-		if (items_[i] = an_item)
-		{
-			//quantity_--;
-			//curr_contents_weight_ = curr_contents_weight_ - unit_weight_;
-			garbageClear();
-			return true;
-		}
-		else
-			return false;
-	}
-	return true;
+
 }
 
- 
-//template <class T>
 double ShoppingCart::checkout()
 {
 	if (item_count_ == 0)
@@ -97,19 +90,22 @@ double ShoppingCart::checkout()
 	clear();
 	return total;
 }
-//template <clas
+
 void ShoppingCart::garbageClear()
 {
-	//DynamicArray<Grocery*>::remove();
+	int z = item_count_;
+	for (int i = 0; i <z; i++)
+	{
+		if (items_[i]->getQuantity()==0)     //checks the all items in array and checks whether its quantity is 0
+		{
+			DynamicArray::remove(items_[i]);   //call remove 
+		}
+	}
+
 }
 
-
-
-
-
-//template <class T>
 double ShoppingCart::getCurrentWeight()
 {
-	return curr_contents_weight_;
-}
 
+	return curr_contents_weight_;  //gets current weight
+}

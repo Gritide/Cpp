@@ -4,6 +4,8 @@ Title         :   Grocery.hpp
 Auhor         :   Team FBK
 Description   :   header/interface file of a dynamically resizeable array class
 ****************************************************************************************************************************/
+//Dogukan Celik
+//Dogukan.Celik89@myhunter.cuny.edu
 
 #ifndef GROCERY_
 #define GROCERY_

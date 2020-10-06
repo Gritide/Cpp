@@ -43,19 +43,27 @@ bool DynamicArray<T>::add(const T &new_entry)
 {
 	try
 	{
-		if (item_count_ < current_capacity_)
+		if (item_count_ < current_capacity_ )   //if item count less than curr                   
 		{
-			items_[item_count_] = new_entry;
-			item_count_++;
+			items_[item_count_] = new_entry; //add new item
+			item_count_++; //increment itemcount
 			return true;
 		}
-		resize();
+		else
+		{
+			resize(); // call resize to create
+			items_[item_count_] = new_entry;      //add new item
+			item_count_++; //increment itemcount
+			return true;
+		}
+
+	
 	}
 	catch (...)
 	{
 		return false;
 	}
-	return true;
+	
 }
 
 /**
@@ -115,13 +123,16 @@ bool DynamicArray<T>::remove(const T &an_item)
 {
 	try
 	{
-		int index = getIndexOf(an_item); 
-		if (!isEmpty() && index > -1)
-		{
-			item_count_--;
-			items_[index] = items_[item_count_];  
-			resize();
+		int index = getIndexOf(an_item);  // get index of the input             
+		if (!isEmpty() && index > -1)       // if input is not empty and our index is greater than -1
+		{   
+			item_count_--;   //decrement item_count
+			items_[index] = items_[item_count_];    //copy the item in the last element
+			resize(); //call resize
+			return true;
 		}
+		
+		
 	}
 	catch (...)
 	{
@@ -220,27 +231,22 @@ template <class T>
 void DynamicArray<T>::resize()
 {
 
-	T*crab = new T[current_capacity_];
-	if (item_count_ ==current_capacity_)
+	T*my_new_array = new T[current_capacity_];
+
+	 if (item_count_ == current_capacity_)  //check whether item count has reached max space
 	{
-		current_capacity_ = current_capacity_ * 2;
-		crab = new T[current_capacity_ * 2];
+		current_capacity_ = current_capacity_ * 2;  // update current capacity
+		my_new_array = new T[current_capacity_ * 2];		//update array space
 	}
 
-	else if (item_count_ <= (current_capacity_ / 4))
+	else if (item_count_< (current_capacity_ / 4))//4 < (8/4)
 	{
-		current_capacity_ = current_capacity_ / 2;
-		crab = new T[current_capacity_ / 2];
+		current_capacity_ = current_capacity_ / 2; // update current capacity
+		my_new_array = new T[current_capacity_ / 2]; //update array space
 	}
-	else
+
+	for (int i = 0; i <= current_capacity_; i++)
 	{
-		current_capacity_ = current_capacity_ * 2;
-		crab = new T[current_capacity_ * 2];
+		my_new_array[i] = items_[i]; // copying items in my_new_array
 	}
-	for (int i = 0; i < current_capacity_; i++)
-	{
-		crab[i] = items_[i];
-	}
-	delete[] items_;
-	//return;
 }
